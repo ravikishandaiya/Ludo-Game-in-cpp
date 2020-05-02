@@ -1,4 +1,4 @@
-# C-C-Projects
+# Ludo game in C++
 Projects done in c and c++
 
 # caution
