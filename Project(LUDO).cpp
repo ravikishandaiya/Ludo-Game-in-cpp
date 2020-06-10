@@ -1,14 +1,32 @@
-#include<bits/stdc++.h>
-#include<cstring>
-#include<windows.h>
-#include<conio.h>
+#include <iostream>
 #include<fstream>
+
+#ifdef __linux__
+	#include <unistd.h>	//For usleep()
+#else
+	#include <windows.h>	//For Sleep()
+#endif
+
+void pauseFunction(int milliSec){
+	#ifdef __linux__
+		usleep(1000*milliSec);
+	#else
+		Sleep(milliSec);
+	#endif
+}
+void clearFunction(){
+	#ifdef __linux__
+		system("clear");
+	#else
+		system("cls");
+	#endif
+}
 
 using namespace std;
 int countp1=0,countp2=0;
 class game {
 	public:
-		int pl1[4],pl2[4]; //variiables of players coin 
+		int pl1[4],pl2[4]; //variables of players coin 
 		char p1[20],p2[20];
 		game() {
 			for(int i=0; i<4; i++) {
@@ -18,9 +36,9 @@ class game {
 		}
 	void input_data() {
 		cout<<"Enter First player name:";
-		gets(p1);
+		cin>>p1;
 		cout<<"Enter Second player name:";
-		gets(p2);
+		cin>>p2;
 	}
 
 
@@ -41,9 +59,9 @@ void logic_fun_p1() {
 	
 		int count1=0;
 		cout<<endl<<p1<<", its your turn(press ENTER to throw dice)-";
-		getch();
+		cin.get();
 		cout<<"\nWait Please..";
-		Sleep(500);
+		pauseFunction(500);
 		cout<<endl<<"you got '"<<x<<"' on dice"<<endl;
 		cout<<"\nCurrent location of your coins:\n";
 		cout<<pl1[0]<<endl<<pl1[1]<<endl<<pl1[2]<<endl<<pl1[3]<<endl;
@@ -164,9 +182,9 @@ void logic_fun_p2() {
 		int count1=0;
 		int guti,w=0;
 		cout<<endl<<p2<<", its your turn(press ENTER to throw dice)-";
-		getch();
+		cin.get();
 		cout<<"\nWait Please..";
-		Sleep(500);
+		pauseFunction(500);
 		cout<<endl<<"you got '"<<x<<"' on dice"<<endl;
 		cout<<"\nCurrent location of your coins:\n";
 		cout<<pl2[0]<<endl<<pl2[1]<<endl<<pl2[2]<<endl<<pl2[3]<<endl;
@@ -315,15 +333,15 @@ int main() {
 		}
 		cout<<endl;
 	} 
-	Sleep(500);
-	system("cls");
+	pauseFunction(500);
+	clearFunction();
 	
 	for(int k=0; k<5; k++){
 		cout<<"#";
-		Sleep(100);
+		pauseFunction(100);
 	}
-	Sleep(500);
-	system("cls");
+	pauseFunction(500);
+	clearFunction();
 	char temp[20];
 	obj.input_data();
 	while((obj.pl1[0]!=106 && obj.pl1[1]!=106 && obj.pl1[2]!=106 && obj.pl1[3]!=106) || (obj.pl2[0]!=206 && obj.pl2[1]!=206 && obj.pl2[2]!=206 && obj.pl2[3]!=206))
@@ -332,14 +350,14 @@ int main() {
 		cout<<"\nUpdated location of coins for player1: "<<obj.p1<<endl;
 		cout<<obj.pl1[0]<<endl<<obj.pl1[1]<<endl<<obj.pl1[2]<<endl<<obj.pl1[3]<<endl;
 		cout<<"\n(clear)";
-		getch();
-		system("cls");		
+		cin.get();
+		clearFunction();		
 		obj.logic_fun_p2();
 		cout<<"\nUpdated location of coins for player2: "<<obj.p2<<endl;
 		cout<<obj.pl2[0]<<endl<<obj.pl2[1]<<endl<<obj.pl2[2]<<endl<<obj.pl2[3]<<endl;
 		cout<<"\n(clear)";
-		getch();
-		system("cls");
+		cin.get();
+		clearFunction();		
 	}
 	if(obj.pl1[0]==106 && obj.pl1[1]==106 && obj.pl1[2]==106 && obj.pl1[3]==106) {
 		cout<<"\nPlayer1:"<<obj.p1<<" won";
@@ -355,5 +373,5 @@ int main() {
 		fout<<obj.p2;
 		fout.close();
 	}
-	system("cls");
+	clearFunction();		
 }
